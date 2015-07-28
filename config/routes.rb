@@ -40,6 +40,8 @@ Nomster::Application.routes.draw do
   #     end
   #   end
 
+  root 'places#index'
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'
