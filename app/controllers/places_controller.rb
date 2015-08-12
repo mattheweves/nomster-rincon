@@ -24,7 +24,12 @@ class PlacesController < ApplicationController
 	end
 
 	def update
-		params.require(:place).permit(:name, :address, :description)
+		#We should find the record the user wants to update.
+		#We should update this record and save the changes the user specifies into our database.
+		#We should send the user back to the root page.
+		@place = Place.find(params[:id])
+		@place.update_attributes(place_params)
+		redirect_to root_path	
 	end
 
 
