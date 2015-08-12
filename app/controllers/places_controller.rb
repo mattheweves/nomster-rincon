@@ -1,6 +1,6 @@
 class PlacesController < ApplicationController
 
-	before_action :authenticate_user!, :only =>[:new, :create]
+	before_action :authenticate_user!, :only =>[:new, :create, :edit, :update]
 	def index
 		#@places = Place.all
 		@places = Place.order("name").page(params[:page]).per(2)
@@ -21,13 +21,23 @@ class PlacesController < ApplicationController
 
 	def edit
 		@place = Place.find(params[:id])
+
+		if @place.user != current_user
+			return render :text => 'Not Allowed', :status => :forbidden
+		end
+
 	end
 
 	def update
 		#We should find the record the user wants to update.
 		#We should update this record and save the changes the user specifies into our database.
 		#We should send the user back to the root page.
+		
 		@place = Place.find(params[:id])
+		if @place.user != current_user
+			return render :text => 'Not Allowed', :status => :forbidden
+		end
+
 		@place.update_attributes(place_params)
 		redirect_to root_path	
 	end
