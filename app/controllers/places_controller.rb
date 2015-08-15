@@ -70,5 +70,6 @@ class PlacesController < ApplicationController
 		params.require(:place).permit(:name, :address, :description)
 	end
 
+	
 
 end
